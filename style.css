@@ -1,0 +1,176 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    min-height: 100vh;
+    font-size: 16px;
+}
+
+header {
+    background-color: #FFF700;
+    position: sticky;
+    width: 100%;
+    top: 0;
+    
+}
+
+h1 {
+    text-align: center;
+    font-size: 3rem;
+    margin: 0 0 10px 0; 
+    padding: 10px; 
+    color: #000000;
+}
+
+.selection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.selection ul {
+    display: flex;
+    list-style: none;
+    font-size: 1.5rem;
+}
+
+.selection li {
+    margin: 20px;
+    background-color: #000000;
+    padding: 10px;
+    border: 3px solid #FFF700;
+}
+
+.selection li:hover {
+    cursor: pointer;
+}
+
+.instruction-container {
+    display: flex;
+    justify-content: center;
+}
+
+.instruction {
+    width: 50%;
+    color: black;
+    font-size: 1.3rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    background: white;
+    padding: 15px;
+    border: 4px solid #FFF700;
+}
+
+#gameBoard {
+    display: grid;
+    grid-template-columns: 10% 60% 10% 20%;
+    width: 800px;
+    border: 2px solid #000000;
+    margin: auto;
+    margin-top: 5px;
+    background-color: silver;
+    z-index: 2;
+}
+
+@media (max-width: 860px){
+    #gameBoard {
+        width: 80%;
+    }
+}
+
+#colorFFA737 {
+    background-color: #FFA737
+}
+
+#colorA37774 {
+    background-color: #A37774
+}
+#colorEEEBD0 {
+    background-color: #EEEBD0
+}
+
+#color00A6ED {
+    background-color: #00A6ED
+}
+
+#colorFFF700 {
+    background-color: #fff700
+}
+
+#color000000 {
+    background-color: #000000
+}
+
+
+
+.color-choices{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    padding: 1rem 1rem;
+    
+}
+
+.color {
+    height: 30px;
+    width: 30px;
+    margin-top: 3px;
+    border: 3px solid white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sideInfo {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+    background-color: darkgrey;
+}
+
+.status {
+    height: 20px;
+    width: 20px;
+    border: 3px solid black;
+    border-radius: 50%;
+    background-color: darkgray;
+    margin-top: 2px;
+}
+
+.guesses{
+    padding-top: 2rem;
+    padding-bottom:2rem;
+    display: flex; 
+    justify-content: space-around;
+    align-items: center;  
+}
+
+.guesses-dot{
+    border: 3px solid black;
+    background-color: white;
+    height: 80px;
+    width: 80px;
+    margin-left: 2px;
+    border-radius: 50%;
+}
+
+#checkMatches{
+    padding: 0 10px;
+    font-family: sans-serif;
+    font-size: 1rem;
+    background-color: #FFF700;
+    border: none;
+    font-size: 1.4rem;
+}
+
+

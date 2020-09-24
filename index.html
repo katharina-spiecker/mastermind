@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mastermind</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+</head>
+
+<body onload="codeCreation()">
+    <header>
+        <h1>Mastermind</h1>
+    </header>
+
+    <section class="selection">
+        <ul>
+            <li class="choice-instruction">Instructions</li>
+        </ul>
+    </section>
+
+
+    <div class="instruction-container"></div>
+
+    <ul id="boardsContainer">
+        <li id="gameBoard">
+
+            <div class="color-choices">
+                <span class="color" id="colorFFA737" onclick="fillColor(event)"></span>
+                <span class="color" id="colorA37774" onclick="fillColor(event)"></span>
+                <span class="color" id="colorEEEBD0" onclick="fillColor(event)"></span>
+                <span class="color" id="color00A6ED" onclick="fillColor(event)"></span>
+                <span class="color" id="colorFFF700" onclick="fillColor(event)"></span>
+                <span class="color" id="color000000" onclick="fillColor(event)"></span>
+            </div>
+
+            <div class="guesses">
+                <span class="guesses-dot" id="guess1"></span>
+                <span class="guesses-dot" id="guess2"></span>
+                <span class="guesses-dot" id="guess3"></span>
+                <span class="guesses-dot" id="guess4"></span>
+            </div>
+
+
+            <div class="sideInfo">
+                <span class="status"></span>
+                <span class="status"></span>
+                <span class="status"></span>
+                <span class="status"></span>
+            </div>
+
+            <button id="checkMatches" onclick="checkMatches()">CHECK</button>
+
+        </li>
+
+    </ul>
+
+    <script src="myscript.js"></script>
+
+</body>
+
+</html>
