@@ -1,58 +1,8 @@
 // selectors
-const instructions = document.querySelector('.choice-instruction');
-const instructionContainer = document.querySelector('.instruction-container');
 const boardsContainer = document.querySelector('#boardsContainer');
 const gameBoard = document.querySelector('#gameBoard');
 
-// event listeners
-instructions.addEventListener('click', printInstructions);
-
-//foldale instructions
-
-function printInstructions(event) {
-    event.preventDefault();
-    if (document.getElementsByClassName("instruction-text").length === 0) {
-        const instructionDiv = document.createElement('div');
-        instructionDiv.classList.add('instruction');
-        const instructionText = document.createElement('p');
-        instructionText.classList.add('instruction-text');
-        instructionText.innerText = "There was a secret code generated and you have to solve it. The code consists of 4 different colors, with each color only occuring once. Crack the code with as few attempts as possible. On the right side of the game board you see how many pins are on the correct spot with the correct color, indicated by black, and how many pins have the correct color but are at the wrong spot, indicated by white. Click 'Check' to check your answer.";
-        instructionDiv.appendChild(instructionText);
-        instructionContainer.appendChild(instructionDiv);
-    }
-    else if (document.getElementsByClassName("instruction-text").length == 1) {
-        instructionContainer.removeChild(document.getElementsByClassName("instruction")[0]);
-    }
-
-}
-
-//make board white
-
-function resetColors(obj) {
-    //reset status circles
-    let statuses = obj.getElementsByClassName("status");
-    for (let i = 0; i < 4; i++) {
-        if (statuses[i].hasAttribute("style")) {
-            statuses[i].removeAttribute("style")
-        }
-    }
-    //reset guess circles
-    let guesses = obj.getElementsByClassName("guesses-dot");
-    for (let i = 0; i < 4; i++) {
-        if (guesses[i].hasAttribute("style")) {
-            guesses[i].removeAttribute("style")
-        }
-    }
-}
-
-function insertBoard() {
-    //true because all descendants of the node should be cloned as well
-    var clonedBoard = gameBoard.cloneNode(true);
-    //reset to orinigal state
-    resetColors(clonedBoard);
-    boardsContainer.appendChild(clonedBoard);
-}
-
+//global vars
 var secretCode = [];
 var randomPositions = [];
 var codeInput = [];
@@ -60,21 +10,53 @@ var codeOptions = ["#FFA737", "#A37774", "#EEEBD0", "#00A6ED", "#FFF700", "#0000
 var guessAmount = 0;
 var fullCorrect = 0, halfCorrect = 0;
 
+// event listeners
+document.querySelector('.choice-instruction').addEventListener('click', printInstructions);
 
-// generate 4 non repeating random number
+//foldale instructions
+function printInstructions() {
+    let instructionContainer = document.querySelector('#instructionContainer');
+    if(!instructionContainer.hasChildNodes()) {
+        const instructionText = document.createElement('p');
+        instructionText.innerText = "There was a secret code generated and you have to solve it. The code consists of 4 different colors, with each color only occuring once. Crack the code with as few attempts as possible. On the right side of the game board you see how many pins are on the correct spot with the correct color, indicated by black, and how many pins have the correct color but are at the wrong spot, indicated by white. Click 'Check' to check your answer.";
+        instructionContainer.appendChild(instructionText);
+    }
+    else if(instructionContainer.hasChildNodes()) {
+        instructionContainer.removeChild(instructionContainer.childNodes[0]);
+    }
+}
+
+function resetColors(obj) {
+    let statuses = obj.getElementsByClassName("status");
+    let guesses = obj.getElementsByClassName("guesses-dot");
+    //convert HTMLCollection into an array
+    statuses = [...statuses];
+    guesses = [...guesses];
+
+    let removeStyle = function(arr){
+        arr.forEach(val => val.hasAttribute("style") && val.removeAttribute("style"))
+    }
+    removeStyle(statuses)
+    removeStyle(guesses)
+}
+
+function insertBoard() {
+    var clonedBoard = gameBoard.cloneNode(true); //true because all descendants of the node should be cloned as well
+    resetColors(clonedBoard); //reset to original state
+    boardsContainer.appendChild(clonedBoard);
+}
+
+// generate 4 non repeating random numbers
 function codeCreation() {
     let randomNum;
     for (let i = 0; i < 4; i++) {
-        // random num btw 0-5
-        randomNum = Math.floor(Math.random() * 6);
-        while (randomPositions.includes(randomNum)) {
-            //while num already exists, generate new one
+        randomNum = Math.floor(Math.random() * 6); // random num btw 0-5
+        while (randomPositions.includes(randomNum)) { //while num already exists, generate new one
             randomNum = Math.floor(Math.random() * 6);
         }
         randomPositions.push(randomNum);
         secretCode.push(codeOptions[randomNum]);
     }
-    console.log(secretCode)
 }
 
 

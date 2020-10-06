@@ -50,13 +50,9 @@ h1 {
     cursor: pointer;
 }
 
-.instruction-container {
-    display: flex;
-    justify-content: center;
-}
-
-.instruction {
+#instructionContainer p{
     width: 50%;
+    margin: auto;
     color: black;
     font-size: 1.3rem;
     line-height: 1.5;
