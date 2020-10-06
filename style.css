@@ -73,10 +73,27 @@ h1 {
     z-index: 2;
 }
 
-@media (max-width: 860px){
-    #gameBoard {
+@media only screen and (max-device-width:860px)  {
+ 
+
+    #instructionContainer p{
         width: 80%;
+        font-size: 1rem;
     }
+
+    #gameBoard {
+        width: 90%;
+    }
+
+    #checkMatches i {
+        font-size: 1.5em;
+    }
+
+    .guesses-dot {
+        width: 5px;
+        height: 5px;
+    }
+
 }
 
 #colorFFA737 {
@@ -167,6 +184,15 @@ h1 {
     background-color: #FFF700;
     border: none;
     font-size: 1.4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
 }
+
+#checkMatches i {
+    font-size: 2em;
+}
+
 
 
