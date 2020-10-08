@@ -8,7 +8,8 @@ var randomPositions = [];
 var codeInput = [];
 var codeOptions = ["#FFA737", "#A37774", "#EEEBD0", "#00A6ED", "#FFF700", "#000000"];
 var guessAmount = 0;
-var fullCorrect = 0, halfCorrect = 0;
+var fullCorrect = 0,
+    halfCorrect = 0;
 
 // event listeners
 document.querySelector('.choice-instruction').addEventListener('click', printInstructions);
@@ -16,12 +17,11 @@ document.querySelector('.choice-instruction').addEventListener('click', printIns
 //foldale instructions
 function printInstructions() {
     let instructionContainer = document.querySelector('#instructionContainer');
-    if(!instructionContainer.hasChildNodes()) {
+    if (!instructionContainer.hasChildNodes()) {
         const instructionText = document.createElement('p');
         instructionText.innerText = "There was a secret code generated and you have to solve it. The code consists of 4 different colors, with each color only occuring once. Crack the code with as few attempts as possible. On the right side of the game board you see how many pins are on the correct spot with the correct color, indicated by black, and how many pins have the correct color but are at the wrong spot, indicated by white. Click 'Check' to check your answer.";
         instructionContainer.appendChild(instructionText);
-    }
-    else if(instructionContainer.hasChildNodes()) {
+    } else if (instructionContainer.hasChildNodes()) {
         instructionContainer.removeChild(instructionContainer.childNodes[0]);
     }
 }
@@ -33,7 +33,7 @@ function resetColors(obj) {
     statuses = [...statuses];
     guesses = [...guesses];
 
-    let removeStyle = function(arr){
+    let removeStyle = function(arr) {
         arr.forEach(val => val.hasAttribute("style") && val.removeAttribute("style"))
     }
     removeStyle(statuses)
@@ -65,13 +65,13 @@ function codeCreation() {
 function fillColor(event) {
     //convert id name into the color
     let color = "#" + event.target.id.substring(5);
-    
+
     if (guessAmount < 4) {
         boardsContainer.lastElementChild.getElementsByClassName("guesses-dot")[guessAmount].style.backgroundColor = color;
         codeInput.push(color);
         guessAmount++;
     }
-    
+
 }
 
 function checkMatches() {
@@ -98,7 +98,7 @@ function checkMatches() {
 
     colorStatus();
     checkWin();
-   
+
 }
 
 function colorStatus() {
@@ -107,7 +107,8 @@ function colorStatus() {
         for (let fullI = 0; fullI < fullCorrect; fullI++) {
             boardsContainer.lastElementChild.getElementsByClassName("status")[statusIterator].style.backgroundColor = "black";
             statusIterator++;
-        } for (let halfI = 0; halfI < halfCorrect; halfI++) {
+        }
+        for (let halfI = 0; halfI < halfCorrect; halfI++) {
             boardsContainer.lastElementChild.getElementsByClassName("status")[statusIterator].style.backgroundColor = "white";
             statusIterator++;
         }
@@ -150,7 +151,3 @@ function resetInput() {
 // }
 
 // var fullCorrect = 0, halfCorrect = 0;
-
-
-
-
