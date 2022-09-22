@@ -1,25 +1,37 @@
-// selectors
-const boardsContainer = document.querySelector('#boardsContainer');
-const gameBoard = document.querySelector('#gameBoard');
+const boardsContainer = document.querySelector("#boardsContainer");
+const gameBoard = document.querySelector("#gameBoard");
 
-//global vars
-var secretCode = [];
-var randomPositions = [];
-var codeInput = [];
-var codeOptions = ["#FFA737", "#A37774", "#EEEBD0", "#00A6ED", "#FFF700", "#000000"];
-var guessAmount = 0;
-var fullCorrect = 0,
-    halfCorrect = 0;
+let secretCode = [];
+let randomPositions = [];
+let codeInput = [];
+let codeOptions = [
+    "#FFA737",
+    "#A37774",
+    "#EEEBD0",
+    "#00A6ED",
+    "#FFF700",
+    "#000000",
+];
+let guessAmount = 0;
+let fullCorrect = 0;
+let halfCorrect = 0;
 
-// event listeners
-document.querySelector('.choice-instruction').addEventListener('click', printInstructions);
+const colorOptions = document.querySelectorAll(".color-option");
+document.addEventListener("load", codeCreation);
+colorOptions.forEach((option) => {
+    option.addEventListener("click", fillColor);
+});
+document
+    .querySelector(".choice-instruction")
+    .addEventListener("click", printInstructions);
+document.getElementById("check-btn").addEventListener("click", checkMatches);
 
-//foldale instructions
 function printInstructions() {
-    let instructionContainer = document.querySelector('#instructionContainer');
+    let instructionContainer = document.querySelector("#instructionContainer");
     if (!instructionContainer.hasChildNodes()) {
-        const instructionText = document.createElement('p');
-        instructionText.innerText = "There was a secret code generated and you have to solve it. The code consists of 4 different colors, with each color only occuring once. Crack the code with as few attempts as possible. On the right side of the game board you see how many pins are on the correct spot with the correct color, indicated by black, and how many pins have the correct color but are at the wrong spot, indicated by white. Click 'Check' to check your answer.";
+        const instructionText = document.createElement("p");
+        instructionText.innerText =
+            "There was a secret code generated and you have to solve it. The code consists of 4 different colors, with each color only occuring once. Crack the code with as few attempts as possible. On the right side of the game board you see how many pins are on the correct spot with the correct color, indicated by black, and how many pins have the correct color but are at the wrong spot, indicated by white. Click 'Check' to check your answer.";
         instructionContainer.appendChild(instructionText);
     } else if (instructionContainer.hasChildNodes()) {
         instructionContainer.removeChild(instructionContainer.childNodes[0]);
@@ -33,11 +45,13 @@ function resetColors(obj) {
     statuses = [...statuses];
     guesses = [...guesses];
 
-    let removeStyle = function(arr) {
-        arr.forEach(val => val.hasAttribute("style") && val.removeAttribute("style"))
-    }
-    removeStyle(statuses)
-    removeStyle(guesses)
+    let removeStyle = function (arr) {
+        arr.forEach(
+            (val) => val.hasAttribute("style") && val.removeAttribute("style")
+        );
+    };
+    removeStyle(statuses);
+    removeStyle(guesses);
 }
 
 function insertBoard() {
@@ -51,7 +65,8 @@ function codeCreation() {
     let randomNum;
     for (let i = 0; i < 4; i++) {
         randomNum = Math.floor(Math.random() * 6); // random num btw 0-5
-        while (randomPositions.includes(randomNum)) { //while num already exists, generate new one
+        while (randomPositions.includes(randomNum)) {
+            //while num already exists, generate new one
             randomNum = Math.floor(Math.random() * 6);
         }
         randomPositions.push(randomNum);
@@ -59,24 +74,24 @@ function codeCreation() {
     }
 }
 
-
-// if color is pressed, change background color and add color to codeInput array
-
+/**
+ * Changes background color
+ */
 function fillColor(event) {
-    //convert id name into the color
-    let color = "#" + event.target.id.substring(5);
+    console.log("fill color called");
+    let color = "#" + event.target.dataset.color;
 
     if (guessAmount < 4) {
-        boardsContainer.lastElementChild.getElementsByClassName("guesses-dot")[guessAmount].style.backgroundColor = color;
+        let guesses = boardsContainer.lastElementChild.getElementsByClassName("guesses-dot");
+        guesses[guessAmount].style.backgroundColor = color;
         codeInput.push(color);
         guessAmount++;
     }
-
 }
 
 function checkMatches() {
-
-    fullCorrect = 0, halfCorrect = 0;
+    console.log("checkMatches called");
+    (fullCorrect = 0), (halfCorrect = 0);
     // compare full first, if not: half
     for (i = 0; i < 4; i++) {
         if (codeInput[i] == secretCode[i]) {
@@ -92,24 +107,25 @@ function checkMatches() {
                     halfCorrect++;
                 }
             }
-
         }
     }
-
     colorStatus();
     checkWin();
-
 }
 
 function colorStatus() {
     let statusIterator = 0;
     while (statusIterator < 4) {
         for (let fullI = 0; fullI < fullCorrect; fullI++) {
-            boardsContainer.lastElementChild.getElementsByClassName("status")[statusIterator].style.backgroundColor = "black";
+            boardsContainer.lastElementChild.getElementsByClassName("status")[
+                statusIterator
+            ].style.backgroundColor = "black";
             statusIterator++;
         }
         for (let halfI = 0; halfI < halfCorrect; halfI++) {
-            boardsContainer.lastElementChild.getElementsByClassName("status")[statusIterator].style.backgroundColor = "white";
+            boardsContainer.lastElementChild.getElementsByClassName("status")[
+                statusIterator
+            ].style.backgroundColor = "white";
             statusIterator++;
         }
         break;
@@ -126,10 +142,9 @@ function checkWin() {
             alert("See you soon Mastermind")
         }
         */
-
     } else {
         insertBoard();
-        resetInput();;
+        resetInput();
     }
 }
 

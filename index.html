@@ -7,19 +7,20 @@
     <title>Mastermind</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
 </head>
 
-<body onload="codeCreation()">
+<body>
     <header>
         <h1>Mastermind</h1>
     </header>
 
-    <section class="selection">
-        <ul>
-            <li class="choice-instruction">Instructions</li>
-        </ul>
-    </section>
+    <div class="selection">
+        <button class="btn choice-instruction">Instructions</button>
+        <button class="btn">Restart</button>
+        <div>Round: <span>0</span></div>
+    </div>
 
 
     <div id="instructionContainer"></div>
@@ -29,12 +30,12 @@
         <li id="gameBoard">
 
             <div class="color-choices">
-                <span class="color" id="colorFFA737" onclick="fillColor(event)"></span>
-                <span class="color" id="colorA37774" onclick="fillColor(event)"></span>
-                <span class="color" id="colorEEEBD0" onclick="fillColor(event)"></span>
-                <span class="color" id="color00A6ED" onclick="fillColor(event)"></span>
-                <span class="color" id="colorFFF700" onclick="fillColor(event)"></span>
-                <span class="color" id="color000000" onclick="fillColor(event)"></span>
+                <span class="color-option" data-color="FFA737" style="background-color: #FFA737;"></span>
+                <span class="color-option" data-color="A37774" style="background-color: #A37774"></span>
+                <span class="color-option" data-color="EEEBD0" style="background-color: #EEEBD0"></span>
+                <span class="color-option" data-color="00A6ED"  style="background-color: #00A6ED;"></span>
+                <span class="color-option" data-color="FFF700" style="background-color: #FFF700;"></span>
+                <span class="color-option" data-color="000000" style="background-color: #000000"></span>
             </div>
 
             <div class="guesses">
@@ -52,13 +53,14 @@
                 <span class="status"></span>
             </div>
 
-            <div id="checkMatches" onclick="checkMatches()"><i class="fas fa-search"></i></div>
+            <!-- <div id="check-btn"><i class="fas fa-search"></i></div> -->
+            <div id="check-btn">Check</div>
 
         </li>
 
     </ul>
 
-    <script src="myscript.js"></script>
+    <script src="script.js"></script>
 
 </body>
 

@@ -72,30 +72,11 @@
         background-color: silver;
         z-index: 2;
         box-sizing: border-box;
+        border-radius: 10px;
     }
     
-    #colorFFA737 {
-        background-color: #FFA737
-    }
-    
-    #colorA37774 {
-        background-color: #A37774
-    }
-    
-    #colorEEEBD0 {
-        background-color: #EEEBD0
-    }
-    
-    #color00A6ED {
-        background-color: #00A6ED
-    }
-    
-    #colorFFF700 {
-        background-color: #fff700
-    }
-    
-    #color000000 {
-        background-color: #000000
+    .color-option {
+
     }
     
     .color-choices {
@@ -107,7 +88,7 @@
         padding: 20px;
     }
     
-    .color {
+    .color-option {
         height: 30px;
         width: 30px;
         margin-top: 3px;
@@ -116,6 +97,9 @@
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+    .color-option:hover {
+        cursor: pointer;
     }
     
     .sideInfo {
