@@ -8,60 +8,68 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
 </head>
 
 <body>
+    
     <header>
         <h1>Mastermind</h1>
     </header>
 
-    <div class="selection">
-        <button class="btn choice-instruction">Instructions</button>
-        <button class="btn">Restart</button>
-        <div>Round: <span>0</span></div>
+    <div class="container">
+        <div class="selection">
+            <button class="btn btn-secondary choice-instruction">Instructions</button>
+            <button class="btn btn-secondary">Restart</button>
+            <div>Round: <span id="round-display">0</span></div>
+        </div>
+
+
+        <div id="instructionContainer" class="d-none">There was a secret code generated and you have to solve it. The code consists of 4 different colors,
+            with each color only occuring once. Crack the code with as few attempts as possible. On the right side of the game board you see
+            how many pins are on the correct spot with the correct color, indicated by black, and how many pins have the correct color but
+            are at the wrong spot, indicated by white. Click 'Check' to check your answer.
+        </div>
+
+
+        <ul id="boardsContainer">
+            <li id="gameBoard">
+
+                <div class="color-choices">
+                    <span class="color-option" data-color="FFA737" style="background-color: #FFA737;"></span>
+                    <span class="color-option" data-color="A37774" style="background-color: #A37774"></span>
+                    <span class="color-option" data-color="EEEBD0" style="background-color: #EEEBD0"></span>
+                    <span class="color-option" data-color="00A6ED"  style="background-color: #00A6ED;"></span>
+                    <span class="color-option" data-color="FFF700" style="background-color: #FFF700;"></span>
+                    <span class="color-option" data-color="000000" style="background-color: #000000"></span>
+                </div>
+
+                <div class="guesses">
+                    <span class="guesses-dot" id="guess1"></span>
+                    <span class="guesses-dot" id="guess2"></span>
+                    <span class="guesses-dot" id="guess3"></span>
+                    <span class="guesses-dot" id="guess4"></span>
+                </div>
+
+
+                <div class="sideInfo">
+                    <span class="status"></span>
+                    <span class="status"></span>
+                    <span class="status"></span>
+                    <span class="status"></span>
+                </div>
+
+                <!-- <div id="check-btn"><i class="fas fa-search"></i></div> -->
+
+                <button class="btn" id="check-btn"><img class="check-btn-icon" src="assets/search-icon.svg" alt=""></button>
+
+            </li>
+
+        </ul>
     </div>
-
-
-    <div id="instructionContainer"></div>
-
-
-    <ul id="boardsContainer">
-        <li id="gameBoard">
-
-            <div class="color-choices">
-                <span class="color-option" data-color="FFA737" style="background-color: #FFA737;"></span>
-                <span class="color-option" data-color="A37774" style="background-color: #A37774"></span>
-                <span class="color-option" data-color="EEEBD0" style="background-color: #EEEBD0"></span>
-                <span class="color-option" data-color="00A6ED"  style="background-color: #00A6ED;"></span>
-                <span class="color-option" data-color="FFF700" style="background-color: #FFF700;"></span>
-                <span class="color-option" data-color="000000" style="background-color: #000000"></span>
-            </div>
-
-            <div class="guesses">
-                <span class="guesses-dot" id="guess1"></span>
-                <span class="guesses-dot" id="guess2"></span>
-                <span class="guesses-dot" id="guess3"></span>
-                <span class="guesses-dot" id="guess4"></span>
-            </div>
-
-
-            <div class="sideInfo">
-                <span class="status"></span>
-                <span class="status"></span>
-                <span class="status"></span>
-                <span class="status"></span>
-            </div>
-
-            <!-- <div id="check-btn"><i class="fas fa-search"></i></div> -->
-            <div id="check-btn">Check</div>
-
-        </li>
-
-    </ul>
 
     <script src="script.js"></script>
 
 </body>
+
 
 </html>

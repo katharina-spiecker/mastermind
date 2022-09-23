@@ -1,40 +1,47 @@
 const boardsContainer = document.querySelector("#boardsContainer");
 const gameBoard = document.querySelector("#gameBoard");
-
-let secretCode = [];
-let randomPositions = [];
-let codeInput = [];
-let codeOptions = [
-    "#FFA737",
-    "#A37774",
-    "#EEEBD0",
-    "#00A6ED",
-    "#FFF700",
-    "#000000",
-];
-let guessAmount = 0;
-let fullCorrect = 0;
-let halfCorrect = 0;
-
+const instructionContainer = document.getElementById("instructionContainer");
+const roundContainer = document.getElementById("round-display");
+const codeOptions = ["#FFA737","#A37774","#EEEBD0","#00A6ED","#FFF700","#000000"];
 const colorOptions = document.querySelectorAll(".color-option");
-document.addEventListener("load", codeCreation);
-colorOptions.forEach((option) => {
-    option.addEventListener("click", fillColor);
-});
-document
-    .querySelector(".choice-instruction")
-    .addEventListener("click", printInstructions);
-document.getElementById("check-btn").addEventListener("click", checkMatches);
 
-function printInstructions() {
-    let instructionContainer = document.querySelector("#instructionContainer");
-    if (!instructionContainer.hasChildNodes()) {
-        const instructionText = document.createElement("p");
-        instructionText.innerText =
-            "There was a secret code generated and you have to solve it. The code consists of 4 different colors, with each color only occuring once. Crack the code with as few attempts as possible. On the right side of the game board you see how many pins are on the correct spot with the correct color, indicated by black, and how many pins have the correct color but are at the wrong spot, indicated by white. Click 'Check' to check your answer.";
-        instructionContainer.appendChild(instructionText);
-    } else if (instructionContainer.hasChildNodes()) {
-        instructionContainer.removeChild(instructionContainer.childNodes[0]);
+let secretCode;
+let randomPositions;
+let codeInput;
+let guessAmount;
+let fullCorrect;
+let halfCorrect;
+
+initValues();
+registerEventListeners();
+
+function initValues(){
+    guessAmount = 0;
+    fullCorrect = 0;
+    halfCorrect = 0;
+    secretCode = [];
+    randomPositions = [];
+    codeInput = [];
+}
+
+function registerEventListeners(){
+    console.log("registerEventListeners called")
+    document.addEventListener("DOMContentLoaded", codeCreation);
+    colorOptions.forEach((option) => {
+        option.addEventListener("click", fillColor);
+    });
+    document.querySelector(".choice-instruction").addEventListener("click", () => {
+        toggleDisplayMode(instructionContainer)
+    });
+    document.getElementById("check-btn").addEventListener("click", checkMatches);
+}
+
+function toggleDisplayMode(node){
+
+    if(node.classList.contains("d-none")){
+        node.classList.remove("d-none")
+    } else {
+        node.classList.add("d-none")
     }
 }
 
@@ -60,18 +67,28 @@ function insertBoard() {
     boardsContainer.appendChild(clonedBoard);
 }
 
-// generate 4 non repeating random numbers
+// generate 4 non-repeating random numbers
 function codeCreation() {
+    console.log("codeCreation")
     let randomNum;
     for (let i = 0; i < 4; i++) {
-        randomNum = Math.floor(Math.random() * 6); // random num btw 0-5
+        randomNum = generateRandomNumber();
+        //while num already exists, generate new one since duplicates not allowed
         while (randomPositions.includes(randomNum)) {
-            //while num already exists, generate new one
-            randomNum = Math.floor(Math.random() * 6);
+            randomNum = generateRandomNumber();
         }
         randomPositions.push(randomNum);
         secretCode.push(codeOptions[randomNum]);
     }
+    console.log(randomPositions)
+    console.log(secretCode)
+}
+
+/**
+ * Generates random number between 0-5
+ */
+function generateRandomNumber(){
+    return Math.floor(Math.random() * 6);
 }
 
 /**
