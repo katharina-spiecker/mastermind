@@ -1,3 +1,38 @@
 .btn {
     border-radius: $border-radius;
+    height: 50px;
+}
+
+.btn-primary {
+    background-color: $color-primary;
+    border-color: $color-primary;
+    color: $color-black;
+    &:hover, &:active {
+        background-color: darken($color-primary, 5%) !important;
+        color: $color-black !important;
+        border-color: $color-primary !important;
+    }
+}
+
+.btn-secondary {
+    background-color: $color-secondary;
+    border-color: $color-secondary;
+    color: #fff;
+    &:hover, &:active {
+        background-color: darken($color-secondary, 5%) !important;
+        border-color: $color-secondary;
+    }
+}
+
+.selection {
+    .btn {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+}
+
+#check-btn {
+    height: 100%;
+    border-radius: 0;
+    background-color: $color-secondary;
 }

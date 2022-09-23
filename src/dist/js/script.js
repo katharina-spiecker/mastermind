@@ -6,6 +6,7 @@ let colorOptions = document.querySelectorAll(".color-option");
 const roundDisplay = document.getElementById("round-display");
 const modal = document.getElementById("custom-modal");
 const modalBackdrop = document.getElementById("custom-modal-backdrop");
+const restartBtn = document.getElementById("restart-btn");
 
 let availableColors = [];
 let secretCode;
@@ -16,10 +17,10 @@ let fullCorrect;
 let halfCorrect;
 let round;
 
-// split code into files
 // todo: choose font: load serve font from repo
 // todo: account for adding same color twice
-// todo: reset game
+// todo: reset individual move
+// todo: all 4 have to be used
 
 initValues();
 registerEventListeners();
@@ -44,18 +45,21 @@ function registerEventListeners(){
         option.addEventListener("click", fillColor);
     });
     document.querySelector(".choice-instruction").addEventListener("click", () => {
-        let content = `There was a secret code generated and you have to solve it. The code consists of 4 different colors,
-        with each color only occuring once. Crack the code with as few attempts as possible. On the right side of the game board you see
-        how many pins are on the correct spot with the correct color, indicated by black, and how many pins have the correct color but
-        are at the wrong spot, indicated by white. Click 'Check' to check your answer.`;
-        
-        modal.innerText = content;
+        let part1 = document.createElement("p");
+        part1.innerHTML = "<b>Task:</b> Solve the secret color code. Crack the code with as few attempts as possible.";
+        let part2 = document.createElement("p");
+        part2.innerHTML = `<b>How:</b>The code consists of 4 different colors.
+        Each color only occurs once. On the right side of the game board you see
+        how many pins are on the correct spot. Correct spot and correct color = black. Wrong spot but corrent color = white. Click 'Check' to check your answer.`
+        modal.appendChild(part1);
+        modal.appendChild(part2);
         toggleDisplayMode(modalBackdrop);
     });
     document.getElementById("check-btn").addEventListener("click", checkMatches);
     modalBackdrop.addEventListener("click", () => {
         toggleDisplayMode(modalBackdrop);
     })
+    restartBtn.addEventListener("click", resetGame);
 }
 
 function toggleDisplayMode(node){
@@ -92,7 +96,6 @@ function insertBoard() {
         option.addEventListener("click", fillColor);
     });
     clonedBoard.querySelector("#check-btn").addEventListener("click", checkMatches);
-
 }
 
 // generate 4 non-repeating random numbers
@@ -159,16 +162,25 @@ function checkMatches() {
     }
     displayAccuracy();
     // check win
+    checkWin();
+}
+
+function checkWin(){
     if (fullCorrect == 4) {
         let adjustedString = round == 1 ? "round" : "rounds";
         modal.innerText = `You cracked the code! You have made it in ${round} ${adjustedString}!`;
         toggleDisplayMode(modalBackdrop);
+        resetGame();
     } else {
         round ++;
-        roundDisplay.innerText = round;
+        updateRoundDisplay();
         insertBoard();
         resetInput();
     }
+}
+
+function updateRoundDisplay(){
+    roundDisplay.innerText = round;
 }
 
 /**
@@ -191,16 +203,20 @@ function resetInput() {
     guessAmount = 0;
 }
 
-// function resetGame() {
-//     resetInput();
-//     secretCode = [];
-//     randomPositions = [];
-//     codeCreation();
-//     let gameboards = boardsContainer.querySelectorAll("#gameBoard");
-//     insertBoard()
-//     for(let i=0; i < gameboards.length-1; i++) {
-//         boardsContainer.removeChild(boardsContainer.firstChild);
-//     }
-// }
-
-// var fullCorrect = 0, halfCorrect = 0;
+/**
+ * Resets game.
+ * Triggered on reset game button.
+ */
+function resetGame() {
+    codeInput = [];
+    guessAmount = 0;
+    updateRoundDisplay();
+    secretCode = [];
+    randomPositions = [];
+    codeCreation();
+    let prevGameBoards = boardsContainer.querySelectorAll("#gameBoard");
+    insertBoard();
+    prevGameBoards.forEach(board => {
+        board.remove();
+    });
+}

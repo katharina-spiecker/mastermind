@@ -37,6 +37,44 @@
   overflow: hidden;
 }
 
+.btn {
+  border-radius: 12px;
+  height: 50px;
+}
+
+.btn-primary {
+  background-color: #1AFF1A;
+  border-color: #1AFF1A;
+  color: #000000;
+}
+.btn-primary:hover, .btn-primary:active {
+  background-color: #01ff01 !important;
+  color: #000000 !important;
+  border-color: #1AFF1A !important;
+}
+
+.btn-secondary {
+  background-color: #4B0092;
+  border-color: #4B0092;
+  color: #fff;
+}
+.btn-secondary:hover, .btn-secondary:active {
+  background-color: #3e0079 !important;
+  border-color: #4B0092;
+}
+
+.selection .btn {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#check-btn {
+  height: 100%;
+  border-radius: 0;
+  background-color: #4B0092;
+  color: #fff;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -51,7 +89,7 @@ body {
 }
 
 header {
-  background-color: #fff700;
+  background-color: #1AFF1A;
   position: sticky;
   max-width: 100%;
   top: 0;
@@ -71,29 +109,13 @@ h1 {
   align-items: center;
 }
 
-.selection ul {
-  display: flex;
-  list-style: none;
-  font-size: 1.5rem;
-}
-
-.selection .btn {
-  margin: 20px;
-  background-color: #000000;
-  padding: 10px;
-  border: 3px solid #fff700;
-}
-
-#instructionContainer {
-  width: 50%;
-  margin: auto;
-  color: black;
-  font-size: 1.3rem;
-  line-height: 1.5;
-  margin-bottom: 20px;
-  background: white;
-  padding: 15px;
-  border: 4px solid #fff700;
+.round-wrapper {
+  border: 4px solid #1AFF1A;
+  border-radius: 12px;
+  padding: 9px;
+  height: 50px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .color-choices {

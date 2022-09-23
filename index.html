@@ -17,22 +17,21 @@
     </header>
 
     <div class="container">
-        <div class="selection">
-            <button class="btn btn-secondary choice-instruction">Instructions</button>
-            <button class="btn btn-secondary">Restart</button>
-            <div>Round: <span id="round-display">0</span></div>
+        <div class="selection my-4">
+            <button class="btn btn-primary choice-instruction">Instructions</button>
+            <button id="restart-btn" class="btn btn-secondary">Restart</button>
+            <div class="round-wrapper">Round: <span id="round-display">1</span></div>
         </div>
 
-        <ul id="boardsContainer">
-            <li id="gameBoard">
-
+        <div id="boardsContainer">
+            <div id="gameBoard">
                 <div class="color-choices">
-                    <span class="color-option" data-color="E66100" style="background-color: #E66100;"></span>
-                    <span class="color-option" data-color="D35FB7" style="background-color: #D35FB7"></span>
-                    <span class="color-option" data-color="1AFF1A" style="background-color: #1AFF1A"></span>
-                    <span class="color-option" data-color="0C7BDC"  style="background-color: #0C7BDC;"></span>
-                    <span class="color-option" data-color="FFF700" style="background-color: #FFF700;"></span>
+                    <span class="color-option" data-color="648FFF" style="background-color: #648FFF;"></span>
                     <span class="color-option" data-color="4B0092" style="background-color: #4B0092"></span>
+                    <span class="color-option" data-color="1AFF1A" style="background-color: #1AFF1A"></span>
+                    <span class="color-option" data-color="FE6100"  style="background-color: #FE6100;"></span>
+                    <span class="color-option" data-color="000000" style="background-color: #000000"></span>
+                    <span class="color-option" data-color="FFE19D" style="background-color: #FFE19D"></span>
                 </div>
 
                 <div class="guesses">
@@ -42,7 +41,6 @@
                     <span class="guesses-dot" id="guess4"></span>
                 </div>
 
-
                 <div class="sideInfo">
                     <span class="status"></span>
                     <span class="status"></span>
@@ -51,10 +49,8 @@
                 </div>
 
                 <button class="btn" id="check-btn"><img class="check-btn-icon" src="assets/search-icon.svg" alt=""></button>
-
-            </li>
-
-        </ul>
+            </div>
+        </div>
     </div>
     <div id="custom-modal-backdrop" class="d-none">
         <div id="custom-modal" class="p-4"></div>
