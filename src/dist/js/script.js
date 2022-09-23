@@ -2,13 +2,12 @@
 
 const boardsContainer = document.querySelector("#boardsContainer");
 const gameBoard = document.querySelector("#gameBoard");
-const instructionContainer = document.getElementById("instructionContainer");
 let colorOptions = document.querySelectorAll(".color-option");
 const roundDisplay = document.getElementById("round-display");
 const modal = document.getElementById("custom-modal");
 const modalBackdrop = document.getElementById("custom-modal-backdrop");
 
-const codeOptions = ["#FFA737","#A37774","#EEEBD0","#00A6ED","#FFF700","#000000"];
+let availableColors = [];
 let secretCode;
 let randomPositions;
 let codeInput;
@@ -20,16 +19,22 @@ let round;
 // split code into files
 // todo: choose font: load serve font from repo
 // todo: account for adding same color twice
+// todo: reset game
 
 initValues();
 registerEventListeners();
 
 function initValues(){
+    console.log("init values")
     guessAmount = 0;
     secretCode = [];
     randomPositions = [];
     codeInput = [];
     round = 1;
+    colorOptions.forEach(option => {
+        availableColors.push("#" + option.dataset.color);
+    })
+    console.log(availableColors);
 }
 
 function registerEventListeners(){
@@ -39,9 +44,18 @@ function registerEventListeners(){
         option.addEventListener("click", fillColor);
     });
     document.querySelector(".choice-instruction").addEventListener("click", () => {
-        toggleDisplayMode(instructionContainer)
+        let content = `There was a secret code generated and you have to solve it. The code consists of 4 different colors,
+        with each color only occuring once. Crack the code with as few attempts as possible. On the right side of the game board you see
+        how many pins are on the correct spot with the correct color, indicated by black, and how many pins have the correct color but
+        are at the wrong spot, indicated by white. Click 'Check' to check your answer.`;
+        
+        modal.innerText = content;
+        toggleDisplayMode(modalBackdrop);
     });
     document.getElementById("check-btn").addEventListener("click", checkMatches);
+    modalBackdrop.addEventListener("click", () => {
+        toggleDisplayMode(modalBackdrop);
+    })
 }
 
 function toggleDisplayMode(node){
@@ -92,7 +106,7 @@ function codeCreation() {
             randomNum = generateRandomNumber();
         }
         randomPositions.push(randomNum);
-        secretCode.push(codeOptions[randomNum]);
+        secretCode.push(availableColors[randomNum]);
     }
     console.log(randomPositions)
     console.log(secretCode)
