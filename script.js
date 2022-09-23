@@ -48,13 +48,14 @@ function resetColors(obj) {
     statuses = [...statuses];
     guesses = [...guesses];
 
-    let removeStyle = function (arr) {
-        arr.forEach(
-            (val) => val.hasAttribute("style") && val.removeAttribute("style")
-        ); 
-    };
     removeStyle(statuses);
     removeStyle(guesses);
+}
+
+function removeStyle(arr){
+    arr.forEach(
+        (val) => val.hasAttribute("style") && val.removeAttribute("style")
+    ); 
 }
 
 function insertBoard() {
@@ -127,7 +128,13 @@ function checkMatches() {
     }
     console.log(`full correct: ${fullCorrect}, half correct: ${halfCorrect}`)
     displayAccuracy();
-    checkWin();
+    // check win
+    if (fullCorrect == 4) {
+        alert("Congratulations, you have won!");
+    } else {
+        insertBoard();
+        resetInput();
+    }
 }
 
 /**
@@ -142,22 +149,6 @@ function displayAccuracy() {
     }
     for(let i = fullCorrect; i < fullCorrect + halfCorrect; i ++){
         statusButtons[i].style.backgroundColor = "white";
-    }
-}
-
-function checkWin() {
-    if (fullCorrect == 4) {
-        alert("Congratulations, you have won!");
-        /*
-        if(confirm("Do you want to play again?")) {
-            resetGame();
-        } else {
-            alert("See you soon Mastermind")
-        }
-        */
-    } else {
-        insertBoard();
-        resetInput();
     }
 }
 
