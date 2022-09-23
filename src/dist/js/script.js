@@ -7,6 +7,8 @@ const roundDisplay = document.getElementById("round-display");
 const modal = document.getElementById("custom-modal");
 const modalBackdrop = document.getElementById("custom-modal-backdrop");
 const restartBtn = document.getElementById("restart-btn");
+const undoBtn = document.getElementById("undo-btn");
+
 
 let availableColors = [];
 let secretCode;
@@ -59,6 +61,7 @@ function registerEventListeners(){
     modalBackdrop.addEventListener("click", () => {
         toggleDisplayMode(modalBackdrop);
     })
+    undoBtn.addEventListener("click", undoLastMove);
     restartBtn.addEventListener("click", resetGame);
 }
 
@@ -96,6 +99,7 @@ function insertBoard() {
         option.addEventListener("click", fillColor);
     });
     clonedBoard.querySelector("#check-btn").addEventListener("click", checkMatches);
+    clonedBoard.querySelector("#undo-btn").addEventListener("click", undoLastMove);
 }
 
 // generate 4 non-repeating random numbers
@@ -210,6 +214,7 @@ function resetInput() {
 function resetGame() {
     codeInput = [];
     guessAmount = 0;
+    round = 0;
     updateRoundDisplay();
     secretCode = [];
     randomPositions = [];
@@ -219,4 +224,14 @@ function resetGame() {
     prevGameBoards.forEach(board => {
         board.remove();
     });
+}
+
+/**
+ * Reverts last move
+ */
+function undoLastMove(){
+    codeInput.pop();
+    let guesses = boardsContainer.lastElementChild.getElementsByClassName("guesses-dot");
+    guesses[guessAmount-1].style.backgroundColor = "#fff";
+    guessAmount --;
 }

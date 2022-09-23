@@ -8,7 +8,7 @@
     border-color: $color-primary;
     color: $color-black;
     &:hover, &:active {
-        background-color: darken($color-primary, 5%) !important;
+        background-color: #25ee25 !important;
         color: $color-black !important;
         border-color: $color-primary !important;
     }
@@ -22,17 +22,4 @@
         background-color: darken($color-secondary, 5%) !important;
         border-color: $color-secondary;
     }
-}
-
-.selection {
-    .btn {
-        margin-left: 10px;
-        margin-right: 10px;
-    }
-}
-
-#check-btn {
-    height: 100%;
-    border-radius: 0;
-    background-color: $color-secondary;
 }

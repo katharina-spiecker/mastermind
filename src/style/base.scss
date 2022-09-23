@@ -89,24 +89,6 @@
     margin-top: 2px;
   }
   
-  .guesses {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    box-sizing: border-box;
-  }
-  
-  .guesses-dot {
-    border: 3px solid black;
-    background-color: white;
-    height: 80px;
-    width: 80px;
-    margin-left: 2px;
-    border-radius: 50%;
-  }
-  
   #checkMatches {
     padding: 0 10px;
     font-family: sans-serif;
@@ -121,12 +103,6 @@
   
   #checkMatches i {
     font-size: 4rem;
-  }
-  
-  .check-btn-icon {
-      width: 50%;
-      height: auto;
-      object-fit: contain;
   }
   
   #check-btn {
@@ -145,14 +121,7 @@
     #checkMatches i {
       font-size: 1.3rem;
     }
-    #gameBoard {
-      width: 90%;
-    }
-    .guesses-dot {
-      width: 30px;
-      height: 30px;
-      margin-left: 1px;
-    }
+    
     .color {
       height: 15px;
       width: 15px;
