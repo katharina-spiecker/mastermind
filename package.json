@@ -1,0 +1,24 @@
+{
+  "name": "mastermind",
+  "version": "1.0.0",
+  "description": "mastermind game for colorblind people",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "scss-watch" : "sass --watch src/style/base.scss src/dist/style.css",
+    "scss-build" : "sass src/style/base.scss src/dist/style.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/katharina-spiecker/mastermind.git"
+  },
+  "author": "Katharina Spiecker",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/katharina-spiecker/mastermind/issues"
+  },
+  "homepage": "https://github.com/katharina-spiecker/mastermind#readme",
+  "devDependencies": {
+    "sass": "^1.55.0"
+  }
+}
