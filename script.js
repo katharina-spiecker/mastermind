@@ -1,10 +1,9 @@
 const boardsContainer = document.querySelector("#boardsContainer");
 const gameBoard = document.querySelector("#gameBoard");
 const instructionContainer = document.getElementById("instructionContainer");
-const roundContainer = document.getElementById("round-display");
-const codeOptions = ["#FFA737","#A37774","#EEEBD0","#00A6ED","#FFF700","#000000"];
-const colorOptions = document.querySelectorAll(".color-option");
+let colorOptions = document.querySelectorAll(".color-option");
 
+const codeOptions = ["#FFA737","#A37774","#EEEBD0","#00A6ED","#FFF700","#000000"];
 let secretCode;
 let randomPositions;
 let codeInput;
@@ -17,8 +16,6 @@ registerEventListeners();
 
 function initValues(){
     guessAmount = 0;
-    fullCorrect = 0;
-    halfCorrect = 0;
     secretCode = [];
     randomPositions = [];
     codeInput = [];
@@ -37,7 +34,6 @@ function registerEventListeners(){
 }
 
 function toggleDisplayMode(node){
-
     if(node.classList.contains("d-none")){
         node.classList.remove("d-none")
     } else {
@@ -55,7 +51,7 @@ function resetColors(obj) {
     let removeStyle = function (arr) {
         arr.forEach(
             (val) => val.hasAttribute("style") && val.removeAttribute("style")
-        );
+        ); 
     };
     removeStyle(statuses);
     removeStyle(guesses);
@@ -92,7 +88,7 @@ function generateRandomNumber(){
 }
 
 /**
- * Changes background color
+ * Changes background color of 4 guesses circles
  */
 function fillColor(event) {
     console.log("fill color called");
@@ -102,18 +98,21 @@ function fillColor(event) {
         let guesses = boardsContainer.lastElementChild.getElementsByClassName("guesses-dot");
         guesses[guessAmount].style.backgroundColor = color;
         codeInput.push(color);
+        console.log(codeInput)
         guessAmount++;
     }
 }
 
 function checkMatches() {
     console.log("checkMatches called");
-    (fullCorrect = 0), (halfCorrect = 0);
+    fullCorrect = 0;
+    halfCorrect = 0;
     // compare full first, if not: half
     for (i = 0; i < 4; i++) {
         if (codeInput[i] == secretCode[i]) {
             fullCorrect++;
         } else {
+            // check if color is at another position
             for (let j = i + 1; j < 4; j++) {
                 if (codeInput[i] == secretCode[j]) {
                     halfCorrect++;
@@ -126,26 +125,23 @@ function checkMatches() {
             }
         }
     }
-    colorStatus();
+    console.log(`full correct: ${fullCorrect}, half correct: ${halfCorrect}`)
+    displayAccuracy();
     checkWin();
 }
 
-function colorStatus() {
-    let statusIterator = 0;
-    while (statusIterator < 4) {
-        for (let fullI = 0; fullI < fullCorrect; fullI++) {
-            boardsContainer.lastElementChild.getElementsByClassName("status")[
-                statusIterator
-            ].style.backgroundColor = "black";
-            statusIterator++;
-        }
-        for (let halfI = 0; halfI < halfCorrect; halfI++) {
-            boardsContainer.lastElementChild.getElementsByClassName("status")[
-                statusIterator
-            ].style.backgroundColor = "white";
-            statusIterator++;
-        }
-        break;
+/**
+ * Colors the status dots according to accuracy of guesses
+ */
+function displayAccuracy() {
+    console.log("displayAccuracy called")
+    let currentBoard =  boardsContainer.lastElementChild;
+    let statusButtons = currentBoard.querySelectorAll(".status");
+    for(let i = 0; i < fullCorrect; i ++){
+        statusButtons[i].style.backgroundColor = "black";
+    }
+    for(let i = fullCorrect; i < fullCorrect + halfCorrect; i ++){
+        statusButtons[i].style.backgroundColor = "white";
     }
 }
 
