@@ -1,6 +1,7 @@
 .btn {
     border-radius: $border-radius;
     height: 50px;
+    text-transform: uppercase;
 }
 
 .btn-primary {
@@ -10,7 +11,7 @@
     &:hover, &:active {
         background-color: #25ee25 !important;
         color: $color-black !important;
-        border-color: $color-primary !important;
+        border-color: $color-black !important;
     }
 }
 
@@ -20,6 +21,12 @@
     color: #fff;
     &:hover, &:active {
         background-color: darken($color-secondary, 5%) !important;
-        border-color: $color-secondary;
+        border-color: $color-black;
+    }
+}
+
+.selection {
+    .btn {
+        border: $border-thickness solid $color-black;
     }
 }

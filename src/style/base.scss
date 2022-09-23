@@ -19,18 +19,21 @@
   }
   
   header {
-    background-color: $color-primary;
+    background-color: #fff;
     position: sticky;
     max-width: 100%;
     top: 0;
-  }
-  
-  h1 {
-    text-align: center;
-    font-size: 3rem;
-    margin: 0 0 10px 0;
-    padding: 10px;
-    color: #000000;
+    padding-bottom: 10px;
+    h1 {
+        background-color: $color-primary;
+        margin-bottom: 0;
+        text-align: center;
+        text-transform: uppercase;
+        font-size: 3rem;
+        margin: 0 0 10px 0;
+        padding: 10px;
+        color: #000000;
+    }
   }
   
   .selection {

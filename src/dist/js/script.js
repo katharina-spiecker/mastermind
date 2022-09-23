@@ -3,7 +3,6 @@
 const boardsContainer = document.querySelector("#boardsContainer");
 const gameBoard = document.querySelector("#gameBoard");
 let colorOptions = document.querySelectorAll(".color-option");
-const roundDisplay = document.getElementById("round-display");
 const modal = document.getElementById("custom-modal");
 const modalBackdrop = document.getElementById("custom-modal-backdrop");
 const restartBtn = document.getElementById("restart-btn");
@@ -53,16 +52,21 @@ function registerEventListeners(){
         part2.innerHTML = `<b>How:</b>The code consists of 4 different colors.
         Each color only occurs once. On the right side of the game board you see
         how many pins are on the correct spot. Correct spot and correct color = black. Wrong spot but corrent color = white. Click 'Check' to check your answer.`
+        modal.innerText = "";
         modal.appendChild(part1);
         modal.appendChild(part2);
         toggleDisplayMode(modalBackdrop);
     });
     document.getElementById("check-btn").addEventListener("click", checkMatches);
-    modalBackdrop.addEventListener("click", () => {
-        toggleDisplayMode(modalBackdrop);
-    })
+    modalBackdrop.addEventListener("click", closeModal);
     undoBtn.addEventListener("click", undoLastMove);
     restartBtn.addEventListener("click", resetGame);
+}
+
+function closeModal(event){
+    if(event.target.id == "custom-modal-backdrop"){
+        toggleDisplayMode(modalBackdrop);
+    }
 }
 
 function toggleDisplayMode(node){
@@ -177,14 +181,9 @@ function checkWin(){
         resetGame();
     } else {
         round ++;
-        updateRoundDisplay();
         insertBoard();
         resetInput();
     }
-}
-
-function updateRoundDisplay(){
-    roundDisplay.innerText = round;
 }
 
 /**
@@ -215,7 +214,6 @@ function resetGame() {
     codeInput = [];
     guessAmount = 0;
     round = 0;
-    updateRoundDisplay();
     secretCode = [];
     randomPositions = [];
     codeCreation();

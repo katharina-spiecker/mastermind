@@ -27,9 +27,9 @@
   display: grid;
   grid-template-columns: 10% 60% 10% 20%;
   width: 100%;
-  border: 2px solid #000000;
+  border: 4px solid #000000;
   margin: auto;
-  margin-top: 5px;
+  margin-top: 15px;
   background-color: silver;
   z-index: 2;
   box-sizing: border-box;
@@ -44,10 +44,11 @@
   justify-content: space-around;
   align-items: center;
   box-sizing: border-box;
+  width: 100%;
 }
 
 .guesses-dot {
-  border: 3px solid black;
+  border: 4px solid black;
   background-color: white;
   height: 30px;
   width: 30px;
@@ -86,9 +87,16 @@
     object-fit: contain;
   }
 }
+@media (min-width: 1200px) {
+  .guesses-dot {
+    height: 100px;
+    width: 100px;
+  }
+}
 .btn {
   border-radius: 12px;
   height: 50px;
+  text-transform: uppercase;
 }
 
 .btn-primary {
@@ -99,7 +107,7 @@
 .btn-primary:hover, .btn-primary:active {
   background-color: #25ee25 !important;
   color: #000000 !important;
-  border-color: #1AFF1A !important;
+  border-color: #000000 !important;
 }
 
 .btn-secondary {
@@ -109,7 +117,11 @@
 }
 .btn-secondary:hover, .btn-secondary:active {
   background-color: #3e0079 !important;
-  border-color: #4B0092;
+  border-color: #000000;
+}
+
+.selection .btn {
+  border: 4px solid #000000;
 }
 
 * {
@@ -126,14 +138,17 @@ body {
 }
 
 header {
-  background-color: #1AFF1A;
+  background-color: #fff;
   position: sticky;
   max-width: 100%;
   top: 0;
+  padding-bottom: 10px;
 }
-
-h1 {
+header h1 {
+  background-color: #1AFF1A;
+  margin-bottom: 0;
   text-align: center;
+  text-transform: uppercase;
   font-size: 3rem;
   margin: 0 0 10px 0;
   padding: 10px;
