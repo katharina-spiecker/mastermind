@@ -1,7 +1,12 @@
+
+
 const boardsContainer = document.querySelector("#boardsContainer");
 const gameBoard = document.querySelector("#gameBoard");
 const instructionContainer = document.getElementById("instructionContainer");
 let colorOptions = document.querySelectorAll(".color-option");
+const roundDisplay = document.getElementById("round-display");
+const modal = document.getElementById("custom-modal");
+const modalBackdrop = document.getElementById("custom-modal-backdrop");
 
 const codeOptions = ["#FFA737","#A37774","#EEEBD0","#00A6ED","#FFF700","#000000"];
 let secretCode;
@@ -10,6 +15,11 @@ let codeInput;
 let guessAmount;
 let fullCorrect;
 let halfCorrect;
+let round;
+
+// split code into files
+// todo: choose font: load serve font from repo
+// todo: account for adding same color twice
 
 initValues();
 registerEventListeners();
@@ -19,6 +29,7 @@ function initValues(){
     secretCode = [];
     randomPositions = [];
     codeInput = [];
+    round = 1;
 }
 
 function registerEventListeners(){
@@ -62,6 +73,12 @@ function insertBoard() {
     var clonedBoard = gameBoard.cloneNode(true); //true because all descendants of the node should be cloned as well
     resetColors(clonedBoard); //reset to original state
     boardsContainer.appendChild(clonedBoard);
+    colorOptions = clonedBoard.querySelectorAll(".color-option");
+    colorOptions.forEach((option) => {
+        option.addEventListener("click", fillColor);
+    });
+    clonedBoard.querySelector("#check-btn").addEventListener("click", checkMatches);
+
 }
 
 // generate 4 non-repeating random numbers
@@ -126,12 +143,15 @@ function checkMatches() {
             }
         }
     }
-    console.log(`full correct: ${fullCorrect}, half correct: ${halfCorrect}`)
     displayAccuracy();
     // check win
     if (fullCorrect == 4) {
-        alert("Congratulations, you have won!");
+        let adjustedString = round == 1 ? "round" : "rounds";
+        modal.innerText = `You cracked the code! You have made it in ${round} ${adjustedString}!`;
+        toggleDisplayMode(modalBackdrop);
     } else {
+        round ++;
+        roundDisplay.innerText = round;
         insertBoard();
         resetInput();
     }
