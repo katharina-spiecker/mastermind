@@ -6,7 +6,6 @@ const modalBackdrop = document.getElementById("custom-modal-backdrop");
 const restartBtn = document.getElementById("restart-btn");
 const undoBtn = document.getElementById("undo-btn");
 
-
 let availableColors = [];
 let secretCode;
 let randomPositions;
@@ -16,16 +15,10 @@ let fullCorrect;
 let halfCorrect;
 let round;
 
-// todo: choose font: load serve font from repo
-// todo: account for adding same color twice
-// todo: reset individual move
-// todo: all 4 have to be used
-
 initValues();
 registerEventListeners();
 
 function initValues(){
-    console.log("init values")
     guessAmount = 0;
     secretCode = [];
     randomPositions = [];
@@ -34,11 +27,9 @@ function initValues(){
     colorOptions.forEach(option => {
         availableColors.push("#" + option.dataset.color);
     })
-    console.log(availableColors);
 }
 
 function registerEventListeners(){
-    console.log("registerEventListeners called")
     document.addEventListener("DOMContentLoaded", codeCreation);
     colorOptions.forEach((option) => {
         option.addEventListener("click", fillColor);
@@ -106,7 +97,6 @@ function insertBoard() {
 
 // generate 4 non-repeating random numbers
 function codeCreation() {
-    console.log("codeCreation")
     let randomNum;
     for (let i = 0; i < 4; i++) {
         randomNum = generateRandomNumber();
@@ -117,8 +107,6 @@ function codeCreation() {
         randomPositions.push(randomNum);
         secretCode.push(availableColors[randomNum]);
     }
-    console.log(randomPositions)
-    console.log(secretCode)
 }
 
 /**
@@ -132,7 +120,6 @@ function generateRandomNumber(){
  * Changes background color of 4 guesses circles
  */
 function fillColor(event) {
-    console.log("fill color called");
     let color = "#" + event.target.dataset.color;
 
     if (guessAmount < 4) {
@@ -145,7 +132,6 @@ function fillColor(event) {
 }
 
 function checkMatches() {
-    console.log("checkMatches called");
     fullCorrect = 0;
     halfCorrect = 0;
     // compare full first, if not: half
@@ -188,7 +174,6 @@ function checkWin(){
  * Colors the status dots according to accuracy of guesses
  */
 function displayAccuracy() {
-    console.log("displayAccuracy called")
     let currentBoard =  boardsContainer.lastElementChild;
     let statusButtons = currentBoard.querySelectorAll(".status");
     for(let i = 0; i < fullCorrect; i ++){
