@@ -2,11 +2,12 @@
   "name": "mastermind",
   "version": "1.0.0",
   "description": "mastermind game for colorblind people",
-  "main": "script.js",
+  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "scss-watch" : "sass --watch src/style/base.scss public/style.css",
-    "scss-build" : "sass src/style/base.scss public/style.css"
+    "scss-watch": "sass --watch src/style/base.scss public/style.css",
+    "scss-build": "sass src/style/base.scss public/style.css",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -19,6 +20,11 @@
   },
   "homepage": "https://github.com/katharina-spiecker/mastermind#readme",
   "devDependencies": {
-    "sass": "^1.55.0"
+    "sass": "^1.55.0",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  },
+  "dependencies": {
+    "bootstrap": "^4.6.2"
   }
 }

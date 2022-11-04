@@ -1,6 +1,5 @@
 @import "./variables.scss";
-@import "./bootstrap-breakpoints.scss";
-@import "./mixin.scss";
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
 @import "./modal.scss";
 @import "./components/game-board.scss";
 @import "./components/buttons.scss";

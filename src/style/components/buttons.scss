@@ -5,22 +5,15 @@
 }
 
 .btn-primary {
-    background-color: $color-primary;
-    border-color: $color-primary;
     color: $color-black;
     &:hover, &:active {
-        background-color: #25ee25 !important;
-        color: $color-black !important;
+        color: $color-black;
         border-color: $color-black !important;
     }
 }
 
 .btn-secondary {
-    background-color: $color-secondary;
-    border-color: $color-secondary;
-    color: #fff;
     &:hover, &:active {
-        background-color: darken($color-secondary, 5%) !important;
         border-color: $color-black;
     }
 }
