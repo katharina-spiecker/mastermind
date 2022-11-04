@@ -1,5 +1,3 @@
-
-
 const boardsContainer = document.querySelector("#boardsContainer");
 const gameBoard = document.querySelector("#gameBoard");
 let colorOptions = document.querySelectorAll(".color-option");
