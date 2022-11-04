@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mastermind</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    
+    <header>
+        <h1>Mastermind</h1>
+    </header>
+
+    <div class="container">
+        <div class="selection my-4">
+            <button class="btn btn-primary choice-instruction mx-1 mx-lg-2">Instructions</button>
+            <button id="restart-btn" class="btn btn-secondary mx-1 mx-lg-2">Restart</button>
+        </div>
+
+        <div id="boardsContainer">
+            <div id="gameBoard">
+                <div class="color-choices">
+                    <span class="color-option" data-color="648FFF" style="background-color: #648FFF;"></span>
+                    <span class="color-option" data-color="4B0092" style="background-color: #4B0092"></span>
+                    <span class="color-option" data-color="1AFF1A" style="background-color: #1AFF1A"></span>
+                    <span class="color-option" data-color="FE6100"  style="background-color: #FE6100;"></span>
+                    <span class="color-option" data-color="000000" style="background-color: #000000"></span>
+                    <span class="color-option" data-color="FFE19D" style="background-color: #FFE19D"></span>
+                </div>
+
+                <div class="guesses">
+                    <div class="col-guess">
+                        <span class="guesses-dot" id="guess1"></span>
+                    </div>
+                    <div class="col-guess">
+                        <span class="guesses-dot" id="guess2"></span>
+                    </div>
+                    <div class="col-guess">
+                        <span class="guesses-dot" id="guess3"></span>
+                    </div>
+                    <div class="col-guess">
+                        <span class="guesses-dot" id="guess4"></span>
+                    </div>
+                </div>
+
+                <div class="sideInfo">
+                    <span class="status"></span>
+                    <span class="status"></span>
+                    <span class="status"></span>
+                    <span class="status"></span>
+                </div>
+
+                <div class="d-flex game-board_actions-buttons">
+                    <button class="btn btn-primary" id="check-btn">
+                        <img class="icon" title="check result" src="assets/search-icon.svg">
+                    </button>
+                    <button class="btn btn-secondary" id="undo-btn">
+                        <img class="icon" title="undo last move" src="assets/undo.svg">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="custom-modal-backdrop" class="d-none">
+        <div id="custom-modal" class="p-4"></div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+
+
+</html>
