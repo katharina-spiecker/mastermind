@@ -1,34 +1,39 @@
 export default class UI {
 
+    construct(state){
+        this.modal = document.getElementById("custom-modal");
+        this.modalBackdrop = document.getElementById("custom-modal-backdrop");
+        this.state = state;
+    }
+
     /**
      * Reverts last move.
      * @public
      */
-    undoLastMove(boardsContainer, state){
-        state.codeInput.pop();
+    undoLastMove(boardsContainer){
+        this.state.codeInput.pop();
         let guesses = boardsContainer.lastElementChild.getElementsByClassName("guesses-dot");
-        guesses[state.guessAmount-1].style.backgroundColor = "#fff";
-        state.guessAmount --;
+        guesses[this.state.guessAmount-1].style.backgroundColor = "#fff";
+        this.state.guessAmount --;
     }
 
     /**
      * Inserts new gameboard.
      * @public
      * @param {*} boardsContainer
-     * @param {*} state
      * @param {*} scoreChecker
      */
-    insertBoard(boardsContainer, state, scoreChecker) {
+    insertBoard(boardsContainer, scoreChecker) {
         const gameBoard = document.querySelector("#gameBoard");
         const clonedBoard = gameBoard.cloneNode(true); //true because all descendants of the node should be cloned as well
         this._resetColors(clonedBoard); //reset to original state
         boardsContainer.appendChild(clonedBoard);
         colorOptions = clonedBoard.querySelectorAll(".color-option");
         colorOptions.forEach((option) => {
-            option.addEventListener("click", (e) => this.fillColor(e, state, boardsContainer));
+            option.addEventListener("click", (e) => this.fillColor(e, boardsContainer));
         });
-        clonedBoard.querySelector("#check-btn").addEventListener("click", () => scoreChecker.checkMatches(boardsContainer, modal, modalBackdrop, state));
-        clonedBoard.querySelector("#undo-btn").addEventListener("click", () => this.undoLastMove(boardsContainer, state));
+        clonedBoard.querySelector("#check-btn").addEventListener("click", () => scoreChecker.checkMatches(boardsContainer, this.modal, this.modalBackdrop));
+        clonedBoard.querySelector("#undo-btn").addEventListener("click", () => this.undoLastMove(boardsContainer));
     }
 
     /**
@@ -59,17 +64,16 @@ export default class UI {
     /**
      * Changes background color of 4 guesses circles.
      * @public
-     * @param {*} state
      * @param {*} boardsContainer
      */
-    fillColor(event, state, boardsContainer) {
+    fillColor(event, boardsContainer) {
         let color = "#" + event.target.dataset.color;
 
-        if (state.guessAmount < 4) {
+        if (this.state.guessAmount < 4) {
             let guesses = boardsContainer.lastElementChild.getElementsByClassName("guesses-dot");
-            guesses[state.guessAmount].style.backgroundColor = color;
-            state.codeInput.push(color);
-            state.guessAmount++;
+            guesses[this.state.guessAmount].style.backgroundColor = color;
+            this.state.codeInput.push(color);
+            this.state.guessAmount++;
         }
     }
 
@@ -80,7 +84,7 @@ export default class UI {
      */
     closeModal(e){
         if(e.target.id == "custom-modal-backdrop"){
-            this.toggleDisplayMode(modalBackdrop);
+            this.toggleDisplayMode(this.modalBackdrop);
         }
     }
 

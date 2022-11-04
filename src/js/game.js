@@ -1,30 +1,29 @@
 import UI from "./js/ui";
 import ScoreChecker from "./js/scoreChecker";
 import {generateRandomNumber} from "./js/helper";
-import Input from "./js/input";
+import InputHandler from "./js/inputHandler";
 
 const boardsContainer = document.querySelector("#boardsContainer");
 const colorOptions = document.querySelectorAll(".color-option");
-const modal = document.getElementById("custom-modal");
-const modalBackdrop = document.getElementById("custom-modal-backdrop");
 
 const availableColors = [];
-const ui = new UI();
-const scoreChecker = new ScoreChecker();
-const input = new Input();
-
-const state = {
-    guessAmount: 0,
-    codeInput: [],
-    secretCode: [],
-    round: 1
-};
 
 export default class Game {
 
+    constructor(){
+        this.state = {
+            guessAmount: 0,
+            codeInput: [],
+            secretCode: [],
+            round: 1
+        };
+    }
+
+
     start(){
         this.initValues();
-        input.registerEventListeners();
+        const inputHandler = new InputHandler(this.state);
+        inputHandler.registerEventListeners();
     }
 
     initValues(){
@@ -46,7 +45,7 @@ export default class Game {
                 randomNum = generateRandomNumber();
             }
             randomPositions.push(randomNum);
-            state.secretCode.push(availableColors[randomNum]);
+            this.state.secretCode.push(availableColors[randomNum]);
         }
     }
 
@@ -54,13 +53,15 @@ export default class Game {
      * Resets game. Triggered on reset game button.
      */
     resetGame() {
-        state.codeInput = [];
-        state.guessAmount = 0;
-        state.round = 0;
-        state.secretCode = [];
+        const scoreChecker = new ScoreChecker(this.state);
+        const ui = new UI(this.state);
+        this.state.codeInput = [];
+        this.state.guessAmount = 0;
+        this.state.round = 0;
+        this.state.secretCode = [];
         codeCreation();
         let prevGameBoards = boardsContainer.querySelectorAll("#gameBoard");
-        ui.insertBoard(boardsContainer, state, scoreChecker);
+        ui.insertBoard(boardsContainer, this.state, scoreChecker);
         prevGameBoards.forEach(board => {
             ui.remove();
         });

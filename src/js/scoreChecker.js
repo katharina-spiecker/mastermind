@@ -3,56 +3,54 @@ import UI from './ui';
 
 export default class ScoreChecker {
     
-    constructor(){
+    constructor(state){
         this.fullCorrect = 0;
         this.halfCorrect = 0;
         this.ui = new UI();
+        this.state = state;
     }
 
     /**
      * Checks if accuracy of guesses.
      * @public
      * @param {*} boardsContainer
-     * @param {*} modal 
-     * @param {*} modalBackdrop
-     * @param {*} state 
      * @param {function} resetGame
      */
-     checkMatches(boardsContainer, modal, modalBackdrop, state, resetGame) {
+     checkMatches(boardsContainer, resetGame) {
         // compare full first, if not: half
         for (let i = 0; i < 4; i++) {
-            if (state.codeInput[i] == state.secretCode[i]) {
+            if (this.state.codeInput[i] == this.state.secretCode[i]) {
                 this.fullCorrect++;
             } else {
                 // check if color is at another position
                 for (let j = i + 1; j < 4; j++) {
-                    if (state.codeInput[i] == state.secretCode[j]) {
+                    if (this.state.codeInput[i] == this.state.secretCode[j]) {
                         this.halfCorrect++;
                     }
                 }
                 for (let j = i - 1; j >= 0; j--) {
-                    if (state.codeInput[i] == state.secretCode[j]) {
+                    if (this.state.codeInput[i] == this.state.secretCode[j]) {
                         this.halfCorrect++;
                     }
                 }
             }
         }
         this._displayAccuracy(boardsContainer);
-        this._checkWin(modal, modalBackdrop, state, resetGame);
+        this._checkWin(resetGame);
     }
 
     /**
      * Checks if player has won.
      * @private
      */
-    _checkWin(modal, modalBackdrop, state, resetGame){
+    _checkWin(resetGame){
         if (this.fullCorrect == 4) {
-            let adjustedString = state.round == 1 ? "round" : "rounds";
-            modal.innerText = `You cracked the code! You have made it in ${state.round} ${adjustedString}!`;
-            toggleDisplayMode(modalBackdrop);
+            let adjustedString = this.state.round == 1 ? "round" : "rounds";
+            this.ui.modal.innerText = `You cracked the code! You have made it in ${this.state.round} ${adjustedString}!`;
+            toggleDisplayMode(this.ui.modalBackdrop);
             resetGame();
         } else {
-            state.round ++;
+            this.state.round ++;
             this.ui.insertBoard();
             this._resetInput();
         }
@@ -77,7 +75,7 @@ export default class ScoreChecker {
      * @private
      */
     _resetInput() {
-        state.codeInput = [];
-        state.guessAmount = 0;
+        this.state.codeInput = [];
+        this.state.guessAmount = 0;
     }
 }
