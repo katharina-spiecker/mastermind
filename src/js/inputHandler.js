@@ -1,3 +1,4 @@
+import ScoreChecker from './scoreChecker';
 import UI from './ui';
 
 export default class InputHandler {
@@ -5,7 +6,6 @@ export default class InputHandler {
     constructor(state){
         this.restartBtn = document.getElementById("restart-btn");
         this.undoBtn = document.getElementById("undo-btn");
-        this.ui = new UI();
         this.state = state;
     }
 
@@ -13,6 +13,8 @@ export default class InputHandler {
      * @public
      */
     registerEventListeners(){
+        const ui = new UI(this.state);
+        const scoreChecker = new ScoreChecker(this.state);
         this.state.colorOptions.forEach((option) => {
             option.addEventListener("click", ui.fillColor);
         });
@@ -23,13 +25,13 @@ export default class InputHandler {
             part2.innerHTML = `<b>How:</b>The code consists of 4 different colors.
             Each color only occurs once. On the right side of the game board you see
             how many pins are on the correct spot. Correct spot and correct color = black. Wrong spot but corrent color = white. Click 'Check' to check your answer.`
-            this.ui.modal.innerText = "";
-            this.ui.modal.appendChild(part1);
-            this.ui.modal.appendChild(part2);
-            this.ui.toggleDisplayMode();
+            ui.modal.innerText = "";
+            ui.modal.appendChild(part1);
+            ui.modal.appendChild(part2);
+            ui.toggleDisplayMode();
         });
-        document.getElementById("check-btn").addEventListener("click", () => scoreChecker.checkMatches(thi.ui.boardsContainer));
-        this.ui.modalBackdrop.addEventListener("click", this.ui.closeModal);
+        document.getElementById("check-btn").addEventListener("click", () => scoreChecker.checkMatches(ui.boardsContainer));
+        ui.modalBackdrop.addEventListener("click", ui.closeModal);
         this.undoBtn.addEventListener("click", () => ui.undoLastMove());
         this.restartBtn.addEventListener("click", () => document.dispatchEvent(new Event('userWon')));
     }

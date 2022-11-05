@@ -1,4 +1,4 @@
-import scoreChecker from './scoreChecker';
+import ScoreChecker from './scoreChecker';
 
 export default class UI {
 
@@ -7,7 +7,7 @@ export default class UI {
         this.modalBackdrop = document.getElementById("custom-modal-backdrop");
         this.boardsContainer = document.querySelector("#boardsContainer");
         this.state = state;
-        this.scoreChecker = new scoreChecker();
+        self = this;
     }
 
     /**
@@ -26,15 +26,14 @@ export default class UI {
      * @public
      */
     insertBoard() {
+        const scoreChecker = new ScoreChecker(this.state);
         const gameBoard = document.querySelector("#gameBoard");
         const clonedBoard = gameBoard.cloneNode(true); //true because all descendants of the node should be cloned as well
         this._resetColors(clonedBoard); //reset to original state
         this.boardsContainer.appendChild(clonedBoard);
         this.state.colorOptions = clonedBoard.querySelectorAll(".color-option");
-        this.state.colorOptions.forEach((option) => {
-            option.addEventListener("click", this.fillColor);
-        });
-        clonedBoard.querySelector("#check-btn").addEventListener("click", () => this.scoreChecker.checkMatches(this.boardsContainer));
+        this.state.colorOptions.forEach((option) => option.addEventListener("click", this.fillColor.bind(this)));
+        clonedBoard.querySelector("#check-btn").addEventListener("click", () => scoreChecker.checkMatches(this.boardsContainer));
         clonedBoard.querySelector("#undo-btn").addEventListener("click", () => this.undoLastMove());
     }
 
@@ -71,11 +70,11 @@ export default class UI {
     fillColor(event) {
         let color = "#" + event.target.dataset.color;
 
-        if (this.state.guessAmount < 4) {
-            let guesses = this.boardsContainer.lastElementChild.getElementsByClassName("guesses-dot");
-            guesses[this.state.guessAmount].style.backgroundColor = color;
-            this.state.codeInput.push(color);
-            this.state.guessAmount++;
+        if (self.state.guessAmount < 4) {
+            let guesses = self.boardsContainer.lastElementChild.getElementsByClassName("guesses-dot");
+            guesses[self.state.guessAmount].style.backgroundColor = color;
+            self.state.codeInput.push(color);
+            self.state.guessAmount++;
         }
     }
 
@@ -86,7 +85,7 @@ export default class UI {
      */
     closeModal(e){
         if(e.target.id == "custom-modal-backdrop"){
-            this.toggleDisplayMode();
+            self.toggleDisplayMode();
         }
     }
 

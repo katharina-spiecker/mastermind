@@ -20,10 +20,10 @@ export default class Game {
      */
     start(){
         this.state.colorOptions = document.querySelectorAll(".color-option");
-        document.addEventListener("DOMContentLoaded", this._codeCreation);
+        document.addEventListener("DOMContentLoaded", this._codeCreation.bind(this));
         const inputHandler = new InputHandler(this.state);
         inputHandler.registerEventListeners();
-        document.addEventListener("userWon", this._resetGame);
+        document.addEventListener("userWon", this._resetGame.bind(this));
     }
 
     /**
@@ -35,7 +35,7 @@ export default class Game {
         let randomNum;
         let availableColors = [];
         this.state.colorOptions.forEach(option => {
-            this.state.availableColors.push("#" + option.dataset.color);
+            availableColors.push("#" + option.dataset.color);
         })
         for (let i = 0; i < 4; i++) {
             randomNum = generateRandomNumber();
@@ -62,7 +62,7 @@ export default class Game {
         let prevGameBoards = ui.boardsContainer.querySelectorAll("#gameBoard");
         ui.insertBoard();
         prevGameBoards.forEach(board => {
-            ui.remove();
+            board.remove();
         });
     }
 }

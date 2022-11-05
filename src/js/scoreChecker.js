@@ -5,7 +5,6 @@ export default class ScoreChecker {
     constructor(state){
         this.fullCorrect = 0;
         this.halfCorrect = 0;
-        this.ui = new UI();
         this.state = state;
     }
 
@@ -42,15 +41,16 @@ export default class ScoreChecker {
      * @private
      */
     _checkWin(){
+        const ui = new UI(this.state);
         if (this.fullCorrect == 4) {
             let adjustedString = this.state.round == 1 ? "round" : "rounds";
-            this.ui.modal.innerText = `You cracked the code! You have made it in ${this.state.round} ${adjustedString}!`;
-            this.ui.toggleDisplayMode();
+            ui.modal.innerText = `You cracked the code! You have made it in ${this.state.round} ${adjustedString}!`;
+            ui.toggleDisplayMode();
             const event = new Event('userWon');
             document.dispatchEvent(event);
         } else {
             this.state.round ++;
-            this.ui.insertBoard();
+            ui.insertBoard();
             this._resetInput();
         }
     }
