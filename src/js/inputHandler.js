@@ -9,10 +9,12 @@ export default class InputHandler {
         this.state = state;
     }
 
+    /**
+     * @public
+     */
     registerEventListeners(){
-        document.addEventListener("DOMContentLoaded", codeCreation);
-        colorOptions.forEach((option) => {
-            option.addEventListener("click", (event) => ui.fillColor(event, boardsContainer));
+        this.state.colorOptions.forEach((option) => {
+            option.addEventListener("click", ui.fillColor);
         });
         document.querySelector(".choice-instruction").addEventListener("click", () => {
             let part1 = document.createElement("p");
@@ -24,11 +26,11 @@ export default class InputHandler {
             this.ui.modal.innerText = "";
             this.ui.modal.appendChild(part1);
             this.ui.modal.appendChild(part2);
-            this.ui.toggleDisplayMode(this.ui.modalBackdrop);
+            this.ui.toggleDisplayMode();
         });
-        document.getElementById("check-btn").addEventListener("click", () => scoreChecker.checkMatches(boardsContainer, this.ui.modal, this.ui.modalBackdrop, resetGame));
+        document.getElementById("check-btn").addEventListener("click", () => scoreChecker.checkMatches(thi.ui.boardsContainer));
         this.ui.modalBackdrop.addEventListener("click", this.ui.closeModal);
-        this.undoBtn.addEventListener("click", () => ui.undoLastMove(boardsContainer));
-        this.restartBtn.addEventListener("click", resetGame);
+        this.undoBtn.addEventListener("click", () => ui.undoLastMove());
+        this.restartBtn.addEventListener("click", () => document.dispatchEvent(new Event('userWon')));
     }
 }

@@ -1,12 +1,6 @@
 import UI from "./js/ui";
-import ScoreChecker from "./js/scoreChecker";
 import {generateRandomNumber} from "./js/helper";
 import InputHandler from "./js/inputHandler";
-
-const boardsContainer = document.querySelector("#boardsContainer");
-const colorOptions = document.querySelectorAll(".color-option");
-
-const availableColors = [];
 
 export default class Game {
 
@@ -15,29 +9,33 @@ export default class Game {
             guessAmount: 0,
             codeInput: [],
             secretCode: [],
-            round: 1
+            round: 1,
+            colorOptions: document.querySelectorAll(".color-option"),
         };
     }
 
-
+    /**
+     * Starts game.
+     * @public
+     */
     start(){
-        this.initValues();
+        document.addEventListener("DOMContentLoaded", this._codeCreation);
         const inputHandler = new InputHandler(this.state);
         inputHandler.registerEventListeners();
-    }
-
-    initValues(){
-        colorOptions.forEach(option => {
-            availableColors.push("#" + option.dataset.color);
-        })
+        document.addEventListener("userWon", this._resetGame);
     }
 
     /**
      * Generates 4 non-repeating random numbers.
+     * @private
      */
-    codeCreation() {
+    _codeCreation() {
         let randomPositions = [];
         let randomNum;
+        let availableColors = [];
+        this.state.colorOptions.forEach(option => {
+            this.state.availableColors.push("#" + option.dataset.color);
+        })
         for (let i = 0; i < 4; i++) {
             randomNum = generateRandomNumber();
             //while num already exists, generate new one since duplicates not allowed
@@ -51,17 +49,17 @@ export default class Game {
 
     /**
      * Resets game. Triggered on reset game button.
+     * @private
      */
-    resetGame() {
-        const scoreChecker = new ScoreChecker(this.state);
+    _resetGame() {
         const ui = new UI(this.state);
         this.state.codeInput = [];
         this.state.guessAmount = 0;
         this.state.round = 0;
         this.state.secretCode = [];
-        codeCreation();
-        let prevGameBoards = boardsContainer.querySelectorAll("#gameBoard");
-        ui.insertBoard(boardsContainer, this.state, scoreChecker);
+        this._codeCreation();
+        let prevGameBoards = ui.boardsContainer.querySelectorAll("#gameBoard");
+        ui.insertBoard();
         prevGameBoards.forEach(board => {
             ui.remove();
         });

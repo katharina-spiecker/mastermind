@@ -1,4 +1,3 @@
-import toggleDisplayMode from "./helper";
 import UI from './ui';
 
 export default class ScoreChecker {
@@ -14,9 +13,8 @@ export default class ScoreChecker {
      * Checks if accuracy of guesses.
      * @public
      * @param {*} boardsContainer
-     * @param {function} resetGame
      */
-     checkMatches(boardsContainer, resetGame) {
+     checkMatches(boardsContainer) {
         // compare full first, if not: half
         for (let i = 0; i < 4; i++) {
             if (this.state.codeInput[i] == this.state.secretCode[i]) {
@@ -36,19 +34,20 @@ export default class ScoreChecker {
             }
         }
         this._displayAccuracy(boardsContainer);
-        this._checkWin(resetGame);
+        this._checkWin();
     }
 
     /**
      * Checks if player has won.
      * @private
      */
-    _checkWin(resetGame){
+    _checkWin(){
         if (this.fullCorrect == 4) {
             let adjustedString = this.state.round == 1 ? "round" : "rounds";
             this.ui.modal.innerText = `You cracked the code! You have made it in ${this.state.round} ${adjustedString}!`;
-            toggleDisplayMode(this.ui.modalBackdrop);
-            resetGame();
+            this.ui.toggleDisplayMode();
+            const event = new Event('userWon');
+            document.dispatchEvent(event);
         } else {
             this.state.round ++;
             this.ui.insertBoard();
