@@ -2,7 +2,7 @@ import scoreChecker from './scoreChecker';
 
 export default class UI {
 
-    construct(state){
+    constructor(state){
         this.modal = document.getElementById("custom-modal");
         this.modalBackdrop = document.getElementById("custom-modal-backdrop");
         this.boardsContainer = document.querySelector("#boardsContainer");

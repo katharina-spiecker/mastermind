@@ -2,7 +2,7 @@ import UI from './ui';
 
 export default class InputHandler {
 
-    construct(state){
+    constructor(state){
         this.restartBtn = document.getElementById("restart-btn");
         this.undoBtn = document.getElementById("undo-btn");
         this.ui = new UI();

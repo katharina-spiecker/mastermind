@@ -1,6 +1,6 @@
-import UI from "./js/ui";
-import {generateRandomNumber} from "./js/helper";
-import InputHandler from "./js/inputHandler";
+import UI from "./ui";
+import {generateRandomNumber} from "./helper";
+import InputHandler from "./inputHandler";
 
 export default class Game {
 
@@ -10,7 +10,7 @@ export default class Game {
             codeInput: [],
             secretCode: [],
             round: 1,
-            colorOptions: document.querySelectorAll(".color-option"),
+            colorOptions: null
         };
     }
 
@@ -19,6 +19,7 @@ export default class Game {
      * @public
      */
     start(){
+        this.state.colorOptions = document.querySelectorAll(".color-option");
         document.addEventListener("DOMContentLoaded", this._codeCreation);
         const inputHandler = new InputHandler(this.state);
         inputHandler.registerEventListeners();
